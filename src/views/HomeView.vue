@@ -12,14 +12,14 @@ function login(){
 </script>
 
 <template>
-  <div class='m-3 text-center bg-dark'>
+  <div class='m-3 text-center'>
     <h1 id="logo">Tasks</h1>
     
 </div>
 
 <header class="mx-auto">
 <div id='input-text' class='m-1'>
-<form class="card mx-auto p-3 bg-dark" @submit.prevent="login">
+<form class="card mx-auto p-3" @submit.prevent="login">
 <div id="inp" class="form-outline mx-auto">
   <input  type="text" v-model="titulo" class="form-control" />
   <label class="form-label " for="form12">Digite uma nova tarefa</label>
@@ -32,9 +32,9 @@ function login(){
 </div>
 </header>
 
-<Tasks class="mt-3" />
 
- <div class="card bg-dark p-2 mx-auto">
+
+ <div class="card p-3 mt-2 m-1">
     <p>{{titulo}}</p>
   </div>
 </template>
