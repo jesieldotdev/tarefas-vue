@@ -1,19 +1,9 @@
-<script setup>
-import WelcomeItem from '../components/WelcomeItem.vue'
-import Tasks from '../components/Tasks.vue'
-import {ref} from 'vue'
 
-
-const titulo = ref('')
-function login(){
-  console.log(titulo.value)
-}
-
-</script>
 
 <template>
+	<NavBar />
   <div class='m-3 text-center'>
-    <h1 id="logo">Tasks</h1>
+    <h1 id="logo">Tarefas</h1>
     
 </div>
 
@@ -30,11 +20,87 @@ function login(){
 </div>
 </form>
 </div>
+
 </header>
+<div class='card m-1'>
+<div class="item">
+    <div id="esq-elements">
+    <p style="font-size: 18px" >titulo</p>
+    
+    <small>Há algum tempo</small>
+    <small>{{tasks}}</small>
+   
+  
+    <small>created_at</small>
+    
+    </div>
+    <div class="div-bt">
+       
+           <a href='/'><button type="button" class="btn btn-success btn-floating">
+  <i class="mdi mdi-check"></i>
+</button></a>
+        
+   <a href='/'><button type="button" class="btn btn-warning btn-floating">
+  <i class="mdi mdi-close"></i>
+</button></a>
+
+    <a href="/"><button type="button" class="btn btn-danger btn-floating ms-1 me-1">
+  <i class="mdi mdi-delete"></i>
+</button></a>
+  
+<div class="dropdown">
+  <button
+    class="btn btn-primary btn-floating"
+    type="button"
+    id="dropdownMenuButton"
+    data-mdb-toggle="dropdown"
+    aria-expanded="false"
+  >
+    <i class="mdi mdi-tag-multiple"></i>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+ 
+    <li><a class="dropdown-item" >Editar</a></li>
+    
+  
+  </ul>
+</div>
+</div>
+</div>
+
+   </div>
 
 
-
- <div class="card p-3 mt-2 m-1">
-    <p>{{titulo}}</p>
-  </div>
 </template>
+
+<script>
+import NavBar from "@/components/NavBar.vue"
+
+import { app } from "../firebase";import { getDatabase, ref, child, get } from "firebase/database";
+
+const tasks = []
+
+const dbRef = ref(getDatabase());
+get(child(dbRef, `tarefas`)).then((snapshot) => {
+  if (snapshot.exists()) {
+    console.log(snapshot.val());
+    tasks.push(snapshot.val())
+  } else {
+    console.log("No data available");
+  }
+}).catch((error) => {
+  console.error(error);
+});
+
+
+export default{
+	components: {
+		NavBar,
+	},
+	data(){
+		return{
+			tasks: tasks,
+		}
+	}
+}
+</script>
